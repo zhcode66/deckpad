@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -44,12 +45,20 @@ class HidForegroundService : Service() {
     // Tracks the language the user picked in-app. Seeded from the persisted settings (which
     // themselves resolve from the device language on first launch) and updated live, so the
     // notification text changes together with the UI instead of trailing the device locale.
-    private val appLanguageFlow = settingsRepository.userSettingsFlow
-        .map { it.appLanguage }
-        .stateIn(scope, SharingStarted.Eagerly, null)
+    //
+    // Built in onCreate() rather than in a property initializer: Hilt injects @Inject fields
+    // as part of the generated super.onCreate() call, so an initializer touching
+    // settingsRepository would run during construction — before injection — and throw
+    // UninitializedPropertyAccessException. That crash only reproduces on a real device or
+    // emulator (never in plain JVM unit tests), and only when R8 has stripped the debug names.
+    private lateinit var appLanguageFlow: StateFlow<String?>
 
     override fun onCreate() {
         super.onCreate()
+        appLanguageFlow = settingsRepository.userSettingsFlow
+            .map { it.appLanguage }
+            .stateIn(scope, SharingStarted.Eagerly, null)
+
         NotificationHelper.ensureChannel(this)
         val initialLanguage = appLanguageFlow.value ?: "en"
         ServiceCompat.startForeground(

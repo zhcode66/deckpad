@@ -34,6 +34,30 @@ private const val TAG = "BluetoothHidManager"
 internal fun shouldAttemptRegister(currentState: ConnectionState): Boolean =
     currentState == ConnectionState.DISCONNECTED || currentState == ConnectionState.ERROR
 
+/**
+ * Chooses the bonded device to auto-connect to. Deliberately has no name/address-based
+ * special cases and no "any bonded device" fallback — a wrong pick silently steals the
+ * HID connection from the intended host, so we only ever reconnect to a host the user
+ * has actually connected through this app before.
+ *
+ * @param pluggedAddress device the framework reported via onAppStatusChanged, if any. It is
+ *   authoritative (the system already knows which host the profile is attached to) and so
+ *   outranks any remembered address.
+ * @param lastDeviceAddress the address persisted on the last successful connection.
+ * @param bondedAddresses currently bonded device addresses; a remembered address that is no
+ *   longer bonded (user unpaired it) must be ignored rather than retried forever.
+ * @return the address to connect to, or null when there is nothing safe to pick.
+ */
+internal fun selectAutoConnectAddress(
+    pluggedAddress: String?,
+    lastDeviceAddress: String?,
+    bondedAddresses: Set<String>
+): String? = when {
+    pluggedAddress != null -> pluggedAddress
+    lastDeviceAddress != null && bondedAddresses.contains(lastDeviceAddress) -> lastDeviceAddress
+    else -> null
+}
+
 @Singleton
 class BluetoothHidManager @Inject constructor(
     @param:ApplicationContext private val context: Context,
@@ -142,13 +166,12 @@ class BluetoothHidManager @Inject constructor(
                 val settings = settingsRepository?.userSettingsFlow?.firstOrNull()
                 if (settings != null && !settings.autoReconnect) return@launch
 
-                val target = pluggedDevice
-                    ?: bondedDevices.firstOrNull { it.address == settings?.lastDeviceAddress }
-                    ?: bondedDevices.firstOrNull { it.address.equals("6C:2F:80:26:B5:E6", ignoreCase = true) || it.name?.contains("MSI", ignoreCase = true) == true }
-                    ?: bondedDevices.firstOrNull { dev ->
-                        dev.bluetoothClass?.majorDeviceClass == android.bluetooth.BluetoothClass.Device.Major.COMPUTER
-                    }
-                    ?: bondedDevices.firstOrNull()
+                val targetAddress = selectAutoConnectAddress(
+                    pluggedAddress = pluggedDevice?.address,
+                    lastDeviceAddress = settings?.lastDeviceAddress,
+                    bondedAddresses = bondedDevices.map { it.address }.toSet()
+                )
+                val target = targetAddress?.let { addr -> bondedDevices.firstOrNull { it.address == addr } }
 
                 if (target != null && connectedDevice == null && _connectionState.value != ConnectionState.CONNECTED) {
                     Log.d(TAG, "Auto-connecting to bonded host: ${target.name} (${target.address})")
