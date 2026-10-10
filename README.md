@@ -6,11 +6,11 @@
 
 <p align="center">
   <a href="https://github.com/ahmetselmancloud/deckpad/releases/latest">
-    <img src="https://img.shields.io/badge/Download-Release%20APK%20(v1.2.1)-7F52FF?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
+    <img src="https://img.shields.io/badge/Download-Release%20APK%20(v1.0.0)-7F52FF?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
   </a>
   <img src="https://img.shields.io/badge/Kotlin-2.2.20-7F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" />
   <img src="https://img.shields.io/badge/Jetpack%20Compose-BOM%202024.09.00-4285F4.svg?style=for-the-badge&logo=android&logoColor=white" alt="Jetpack Compose" />
-  <img src="https://img.shields.io/badge/Platform-Android%209.0%2B%20(API%2028%2B)-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white" alt="Platform" />
+  <img src="https://img.shields.io/badge/Platform-Android%2014%2B%20(API%2034%2B)-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white" alt="Platform" />
   <img src="https://img.shields.io/badge/Protocol-Bluetooth%20HID-0082FC.svg?style=for-the-badge&logo=bluetooth&logoColor=white" alt="Bluetooth HID" />
   <img src="https://img.shields.io/badge/License-MIT-success.svg?style=for-the-badge" alt="License" />
 </p>
@@ -79,7 +79,7 @@ Unlike typical remote apps, **DeckPad requires NO companion server software, NO 
 * **PC Shortcut Bar:** Instant access to `Esc`, `Tab`, `Ctrl + C` (Copy), `Ctrl + V` (Paste), `Ctrl + Z` (Undo), and `Ctrl + Alt + Del`.
 
 ### 🌐 5. International-Ready & Dynamic Multi-Language
-* Default English user interface with secondary Turkish localization.
+* Default English user interface with Turkish and Simplified Chinese (简体中文) localizations.
 * Change language on the fly inside Settings without restarting the application.
 * Automatically syncs virtual keyboard layout to your selected language while allowing manual overrides.
 
@@ -108,12 +108,12 @@ Unlike typical remote apps, **DeckPad requires NO companion server software, NO 
 ### Prerequisites
 * **Android Studio:** Ladybug (2024.2+) or newer.
 * **JDK:** Java 17+ (e.g. Android Studio JBR).
-* **Device:** Android phone or tablet running **Android 9.0 (Pie / API 28)** or higher with Bluetooth HID device profile enabled by the manufacturer (standard on Samsung, Google Pixel, Xiaomi, OnePlus, etc.).
+* **Device:** Android phone or tablet running **Android 14 (API 34)** or higher with Bluetooth HID device profile enabled by the manufacturer (standard on Samsung, Google Pixel, Xiaomi, OnePlus, etc.).
 * **Target PC:** Windows 10 or Windows 11 with built-in or USB Bluetooth.
 
 ### 📥 Direct APK Download
 You can download the pre-compiled, signed **Release APK** directly from GitHub Releases:
-* 🚀 **[Download DeckPad-v1.2.1.apk](https://github.com/ahmetselmancloud/deckpad/releases/latest/download/DeckPad-v1.2.1.apk)** (~2.3 MB, R8 minified, signed release)
+* 🚀 **[Download DeckPad-v1.0.0.apk](https://github.com/ahmetselmancloud/deckpad/releases/latest/download/DeckPad-v1.0.0.apk)** (~2.2 MB, R8 minified, signed release)
 
 ### 🛠️ Building from Source
 

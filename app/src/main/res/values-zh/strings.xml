@@ -1,0 +1,141 @@
+<resources>
+    <string name="app_name">DeckPad</string>
+
+    <!-- Connection Status -->
+    <string name="status_connected">已连接</string>
+    <string name="status_connecting">连接中</string>
+    <string name="status_ready">就绪</string>
+    <string name="status_disconnected">未连接</string>
+    <string name="status_error">错误</string>
+
+    <!-- Top Bar Actions -->
+    <string name="action_fullscreen">全屏</string>
+    <string name="action_pair">配对</string>
+    <string name="action_settings">设置</string>
+    <string name="action_exit">退出</string>
+    <string name="action_close">关闭</string>
+
+    <!-- Tabs -->
+    <string name="tab_touchpad">触控板</string>
+    <string name="tab_numpad">数字键盘</string>
+    <string name="tab_media">媒体</string>
+    <string name="tab_keyboard">键盘</string>
+
+    <!-- Touchpad Screen -->
+    <string name="touchpad_surface">触控区域</string>
+    <string name="touchpad_fullscreen_label">全屏触控板</string>
+
+    <!-- Numpad Screen -->
+    <string name="numpad_title">数字键盘</string>
+    <string name="numpad_subtitle">Excel &amp; 计算</string>
+    <string name="numpad_del">退格</string>
+    <string name="numpad_numlk">NumLk</string>
+    <string name="numpad_tab">Tab</string>
+    <string name="numpad_enter">回车</string>
+
+    <!-- Media &amp; Presentation Screen -->
+    <string name="media_player_title">媒体播放器</string>
+    <string name="media_prev">◀ 上一首</string>
+    <string name="media_play_pause">播放 / 暂停</string>
+    <string name="media_next">下一首 ▶</string>
+    <string name="media_vol_down">音量 -</string>
+    <string name="media_mute">静音</string>
+    <string name="media_vol_up">音量 +</string>
+    <string name="presentation_title">演示文稿（翻页）</string>
+    <string name="presentation_prev_slide">◀ 上一页</string>
+    <string name="presentation_next_slide">下一页 ▶</string>
+    <string name="presentation_start">开始 (F5)</string>
+    <string name="presentation_from_current">从当前页 (⇧F5)</string>
+    <string name="presentation_black">黑屏 (B)</string>
+    <string name="presentation_end">结束 (Esc)</string>
+
+    <!-- Keyboard Screen -->
+    <string name="keyboard_title">虚拟键盘</string>
+    <string name="shortcut_copy">复制</string>
+    <string name="shortcut_paste">粘贴</string>
+    <string name="shortcut_undo">撤销</string>
+    <string name="key_space">空格</string>
+    <string name="key_delete">退格</string>
+
+    <!-- Settings Sheet -->
+    <string name="settings_title">DeckPad 设置</string>
+
+    <!-- Language Setting -->
+    <string name="settings_language_title">应用语言</string>
+    <string name="settings_language_desc">选择您偏好的界面语言</string>
+    <string name="settings_lang_en">English (Default)</string>
+    <string name="settings_lang_tr">Türkçe (Turkish)</string>
+    <string name="settings_lang_zh">简体中文</string>
+
+    <!-- Section Headers -->
+    <string name="settings_section_touchpad">触控板与光标</string>
+    <string name="settings_section_gestures">多指点击动作</string>
+    <string name="settings_section_system">系统与输入偏好</string>
+
+    <!-- Cursor &amp; Scroll -->
+    <string name="settings_cursor_speed">光标速度</string>
+    <string name="settings_cursor_speed_desc">鼠标指针在屏幕上的移动速度与灵敏度</string>
+    <string name="settings_scroll_speed">滚动速度</string>
+    <string name="settings_scroll_speed_desc">双指页面滚动的速度与步长</string>
+    <string name="settings_auto_reconnect">自动重连</string>
+    <string name="settings_auto_reconnect_desc">已配对的电脑进入范围时自动连接</string>
+
+    <!-- Multi-finger Taps -->
+    <string name="settings_three_finger">三指点击动作</string>
+    <string name="settings_three_finger_desc">用三根手指轻触屏幕时触发的操作</string>
+    <string name="settings_four_finger">四指点击动作</string>
+    <string name="settings_four_finger_desc">用四根手指轻触屏幕时触发的操作</string>
+
+    <!-- Tap Actions -->
+    <string name="action_middle_click">中键点击（新建标签页）</string>
+    <string name="action_windows_search">Windows 搜索 (Win + S)</string>
+    <string name="action_show_desktop">显示桌面 (Win + D)</string>
+    <string name="action_notification_center">通知中心 (Win + N)</string>
+    <string name="action_disabled">禁用</string>
+
+    <!-- Zoom &amp; Layout -->
+    <string name="settings_zoom_title">双指缩放</string>
+    <string name="settings_zoom_desc">双指开合缩放页面 (Ctrl + 滚轮)</string>
+    <string name="settings_keyboard_layout">键盘字母布局</string>
+    <string name="settings_keyboard_layout_desc">虚拟键盘的字母排列标准</string>
+    <string name="settings_layout_turkish">土耳其语 Q 键盘</string>
+    <string name="settings_layout_english">英语 US 键盘</string>
+
+    <!-- Haptics, Reverse Scroll &amp; Navigation -->
+    <string name="settings_haptics_title">触感反馈</string>
+    <string name="settings_haptics_desc">点击、轻触和按键时轻微震动</string>
+    <string name="settings_reverse_scroll_title">反向滚动</string>
+    <string name="settings_reverse_scroll_desc">反转双指垂直滚动方向（自然 / macOS 风格）</string>
+    <string name="settings_two_finger_nav_title">双指导航</string>
+    <string name="settings_two_finger_nav_desc">在浏览器和文件资源管理器中，双指左右滑动可前进/后退</string>
+    <string name="settings_pointer_accel_title">指针加速</string>
+    <string name="settings_pointer_accel_desc">快速滑动时加速指针，慢速滑动时保持像素级精度（Windows 精密触控板风格）</string>
+    <string name="settings_tap_to_click_title">轻触点击</string>
+    <string name="settings_tap_to_click_desc">单指轻触为左键，双指轻触为右键</string>
+
+    <!-- About &amp; Support -->
+    <string name="settings_about_title">关于与支持</string>
+    <string name="settings_about_desc">面向 Windows 电脑的免费开源蓝牙 HID 遥控生态系统。</string>
+    <string name="settings_github">GitHub 项目</string>
+    <string name="settings_coffee">请我喝杯咖啡 ☕</string>
+
+    <!-- Notification -->
+    <string name="notif_channel_name">连接状态</string>
+    <string name="notif_disconnected">未连接</string>
+    <string name="notif_pairing">正在配对...</string>
+    <string name="notif_ready">已注册，等待连接</string>
+    <string name="notif_connected">已连接</string>
+    <string name="notif_error">错误</string>
+
+    <!-- Gesture Guide -->
+    <string name="settings_gesture_guide_title">触控手势指南</string>
+    <string name="settings_gesture_guide_desc">所有多点触控手势的速查表</string>
+    <string name="gesture_1_finger_title">单指</string>
+    <string name="gesture_1_finger_desc">移动光标，轻触为左键，双击后按住可拖拽（拖拽锁定）</string>
+    <string name="gesture_2_fingers_title">双指</string>
+    <string name="gesture_2_fingers_desc">轻触为右键，垂直/水平滚动，左右滑动前进/后退，双指开合缩放</string>
+    <string name="gesture_3_fingers_title">三指</string>
+    <string name="gesture_3_fingers_desc">上滑：任务视图 (Win+Tab)\n下滑：显示桌面 (Win+D)\n左右滑：切换应用 (Alt+Tab)\n轻触：Windows 搜索 / 中键点击</string>
+    <string name="gesture_4_fingers_title">四指</string>
+    <string name="gesture_4_fingers_desc">左右滑：切换虚拟桌面 (Ctrl+Win+方向键)\n轻触：通知中心 (Win+N)</string>
+</resources>

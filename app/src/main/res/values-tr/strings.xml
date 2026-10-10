@@ -65,6 +65,7 @@
     <string name="settings_language_desc">Tercih ettiğiniz arayüz dilini seçin</string>
     <string name="settings_lang_en">English (İngilizce)</string>
     <string name="settings_lang_tr">Türkçe</string>
+    <string name="settings_lang_zh">Basitleştirilmiş Çince (Simplified Chinese)</string>
 
     <!-- Section Headers -->
     <string name="settings_section_touchpad">İmleç ve Kaydırma</string>

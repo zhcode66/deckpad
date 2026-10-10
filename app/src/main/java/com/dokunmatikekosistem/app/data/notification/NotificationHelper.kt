@@ -16,7 +16,7 @@ const val HID_SERVICE_NOTIFICATION_ID = 1
 /**
  * Single source of truth for how each [ConnectionState] is described to the user —
  * both the on-screen "Durum: ..." text and the persistent foreground-service notification
- * read from [titleFor] so the two never drift apart.
+ * read from [titleResFor] so the two never drift apart.
  */
 object NotificationHelper {
 
@@ -27,14 +27,6 @@ object NotificationHelper {
         ConnectionState.REGISTERED -> R.string.notif_ready
         ConnectionState.CONNECTED -> R.string.notif_connected
         ConnectionState.ERROR -> R.string.notif_error
-    }
-
-    fun titleFor(state: ConnectionState): String = when (state) {
-        ConnectionState.DISCONNECTED -> "Bağlı değil"
-        ConnectionState.REGISTERING -> "Eşleştiriliyor"
-        ConnectionState.REGISTERED -> "Kayıtlı, bağlantı bekleniyor"
-        ConnectionState.CONNECTED -> "Bağlı"
-        ConnectionState.ERROR -> "Hata"
     }
 
     fun ensureChannel(context: Context) {

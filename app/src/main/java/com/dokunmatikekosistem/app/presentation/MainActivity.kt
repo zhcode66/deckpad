@@ -717,6 +717,11 @@ private fun SettingsSheetContent(
                         onClick = { onLanguageSelected("tr") },
                         label = { Text("TR", fontWeight = FontWeight.Bold, fontSize = 11.sp) }
                     )
+                    FilterChip(
+                        selected = userSettings.appLanguage == "zh",
+                        onClick = { onLanguageSelected("zh") },
+                        label = { Text("ZH", fontWeight = FontWeight.Bold, fontSize = 11.sp) }
+                    )
                 }
             }
 
