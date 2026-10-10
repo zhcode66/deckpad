@@ -4,11 +4,13 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Build
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import com.dokunmatikekosistem.app.R
 import com.dokunmatikekosistem.app.domain.ConnectionState
+import java.util.Locale
 
 const val HID_SERVICE_NOTIFICATION_CHANNEL_ID = "hid_service_channel"
 const val HID_SERVICE_NOTIFICATION_ID = 1
@@ -48,4 +50,19 @@ object NotificationHelper {
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .build()
+
+    /**
+     * Builds the notification with every string resolved in [languageTag] instead of the
+     * device language. The service runs outside the Compose tree, so it never sees the
+     * `CompositionLocalProvider` override that `MainAppScreen` installs for the in-app
+     * UI — without this, the notification would follow the device language while the
+     * screen it sits above followed the user's in-app choice, and the two would disagree.
+     */
+    fun build(context: Context, state: ConnectionState, languageTag: String): Notification {
+        val config = Configuration(context.resources.configuration).apply {
+            setLocale(Locale.forLanguageTag(languageTag))
+        }
+        val localizedContext: Context = context.createConfigurationContext(config)
+        return build(localizedContext, state)
+    }
 }

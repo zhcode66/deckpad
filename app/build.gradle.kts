@@ -31,9 +31,9 @@ android {
             val keystoreFile = file("../deckpad-release.jks")
             if (keystoreFile.exists()) {
                 storeFile = keystoreFile
-                storePassword = project.findProperty("DECKPAD_KEYSTORE_PASSWORD") as? String ?: "deckpad123"
-                keyAlias = project.findProperty("DECKPAD_KEY_ALIAS") as? String ?: "deckpad"
-                keyPassword = project.findProperty("DECKPAD_KEY_PASSWORD") as? String ?: "deckpad123"
+                storePassword = "zhao123"
+                keyAlias = "zhcode"
+                keyPassword = "zhao123"
             } else {
                 val debugConfig = getByName("debug")
                 storeFile = debugConfig.storeFile

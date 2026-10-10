@@ -9,14 +9,19 @@ import android.os.Process
 import androidx.core.app.ServiceCompat
 import com.dokunmatikekosistem.app.data.notification.HID_SERVICE_NOTIFICATION_ID
 import com.dokunmatikekosistem.app.data.notification.NotificationHelper
+import com.dokunmatikekosistem.app.data.settings.SettingsRepository
 import com.dokunmatikekosistem.app.domain.HidManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 /**
@@ -31,21 +36,35 @@ class HidForegroundService : Service() {
     @Inject
     lateinit var hidManager: HidManager
 
+    @Inject
+    lateinit var settingsRepository: SettingsRepository
+
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
+    // Tracks the language the user picked in-app. Seeded from the persisted settings (which
+    // themselves resolve from the device language on first launch) and updated live, so the
+    // notification text changes together with the UI instead of trailing the device locale.
+    private val appLanguageFlow = settingsRepository.userSettingsFlow
+        .map { it.appLanguage }
+        .stateIn(scope, SharingStarted.Eagerly, null)
 
     override fun onCreate() {
         super.onCreate()
         NotificationHelper.ensureChannel(this)
+        val initialLanguage = appLanguageFlow.value ?: "en"
         ServiceCompat.startForeground(
             this,
             HID_SERVICE_NOTIFICATION_ID,
-            NotificationHelper.build(this, hidManager.connectionState.value),
+            NotificationHelper.build(this, hidManager.connectionState.value, initialLanguage),
             ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE
         )
-        hidManager.connectionState
-            .onEach { state ->
+        // Rebuild whenever EITHER the connection state changes or the user switches language.
+        combine(hidManager.connectionState, appLanguageFlow) { state, language ->
+            state to (language ?: "en")
+        }
+            .onEach { (state, language) ->
                 val manager = getSystemService(NotificationManager::class.java)
-                manager.notify(HID_SERVICE_NOTIFICATION_ID, NotificationHelper.build(this, state))
+                manager.notify(HID_SERVICE_NOTIFICATION_ID, NotificationHelper.build(this, state, language))
             }
             .launchIn(scope)
     }

@@ -11,8 +11,26 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
+
+/**
+ * Language tags DeckPad ships a translation for. Anything outside this set falls back to
+ * English, which is the default (values/strings.xml) and therefore always resolvable.
+ */
+internal val SUPPORTED_LANGUAGE_TAGS = setOf("en", "tr", "zh")
+
+/**
+ * Maps a system language tag onto a language DeckPad actually ships, so a first launch
+ * follows the device language instead of always showing English. Unmapped languages
+ * (e.g. "de", "ja") deliberately resolve to "en" rather than being passed through —
+ * a passthrough would make [android.content.res.Resources] silently fall back to the
+ * same default anyway, but would also make the settings chip row render with no
+ * chip selected.
+ */
+internal fun resolveInitialLanguageTag(systemLanguageTag: String): String =
+    if (SUPPORTED_LANGUAGE_TAGS.contains(systemLanguageTag)) systemLanguageTag else "en"
 
 @Singleton
 class SettingsRepository @Inject constructor(
@@ -52,7 +70,8 @@ class SettingsRepository @Inject constructor(
             val scroll = prefs[KEY_SCROLL_SPEED] ?: 1.0f
             val autoRec = prefs[KEY_AUTO_RECONNECT] ?: true
             val lastAddr = prefs[KEY_LAST_DEVICE_ADDRESS]
-            val appLang = prefs[KEY_APP_LANGUAGE] ?: "en"
+            val appLang = prefs[KEY_APP_LANGUAGE]
+                ?: resolveInitialLanguageTag(Locale.getDefault().language)
             val haptics = prefs[KEY_HAPTICS_ENABLED] ?: true
             val revScroll = prefs[KEY_REVERSE_SCROLL] ?: false
             val twoFingerNav = prefs[KEY_TWO_FINGER_NAV] ?: true
